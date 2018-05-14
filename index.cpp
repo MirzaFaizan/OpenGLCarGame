@@ -127,6 +127,6 @@ int main(int argc, char **argv) {
 	glutSpecialUpFunc(releaseKey);
 	glEnable(GL_DEPTH_TEST);
 	glutMainLoop();
-
+	hellow();
 	return 0;
 }
