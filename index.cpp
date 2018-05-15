@@ -140,6 +140,18 @@ void computeDir(float deltaAngle)
 	lz = -cos(angle);
 }
 
+// game over function 
+void displayGameOver(){
+
+	glClearColor(0,0,1,0);
+	glTranslatef(0.0f, 0.0f, 1.0f);
+	glScalef(2,0.3,0.5);
+	glColor3f(255.0f, 0.0f , 0.0f);
+	glutSolidCube(3.0);
+	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
+
+}
+
 void display(void) {
 
 	if (deltaMove)
@@ -160,21 +172,19 @@ void display(void) {
 	 int a , b;
 
 	for(int i = -20; i < 20; i++){
-		for(int j=-20; j < 20; j++){
+		for(int j=0; j < 2; j++){
 			glPushMatrix();
 			glTranslatef(i*2.5,0,j * 10.0);
 			drawRoadBlock();
 			drawStrip();
 			glPopMatrix();
-			glPushMatrix();
-			glTranslatef(i*2.5,0,j * 10.0);
-			
-			glPopMatrix();
 			
 		}
 	}
 
-
+		if(z>9){
+			displayGameOver();
+		}
 		drawCar(x,z);
 		glutSwapBuffers();
 }
@@ -205,12 +215,14 @@ int main(int argc, char **argv) {
 	glutInitWindowPosition(100,100);
 	glutInitWindowSize(320,320);
 	glutCreateWindow("Racing Game");
-	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutIdleFunc(display);
 	glutSpecialFunc(pressKey);
 	glutSpecialUpFunc(releaseKey);
 	glEnable(GL_DEPTH_TEST);
+	glutDisplayFunc(displayGameOver);
+	glutDisplayFunc(display);
+
 	glutMainLoop();
 	return 0;
 }
