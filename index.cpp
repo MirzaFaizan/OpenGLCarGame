@@ -178,7 +178,7 @@ void display(void) {
 
 	 int a , b;
 
-	for(int i = -20; i < 20; i++){
+	for(int i = 0; i < 100; i++){
 		for(int j=0; j < 2; j++){
 			glPushMatrix();
 			glTranslatef(i*2.5,0,j * 10.0);
