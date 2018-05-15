@@ -71,7 +71,6 @@ void display(void) {
 		computeDir(deltaAngle);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	
 	gluLookAt(x, 1.0f, z, x+lx , 1.0f,  z+lz,0.0f, 1.0f,  0.0f);
 	glColor3f(0.1f, 0.1f, 0.1f);
 	glBegin(GL_QUADS);
@@ -80,6 +79,7 @@ void display(void) {
 		glVertex3f( 200.0f, 0.0f,  200.0f);
 		glVertex3f( 200.0f, 0.0f, -200.0f);
 	glEnd();
+
 	 
 
 	for(int i = -30; i < 30; i++){
