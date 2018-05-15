@@ -29,8 +29,8 @@ glColor3f(1.0f, 1.0f, 1.0f);
 
 
 	glTranslatef(0.0f, 0.0f, 0.0f);
+	glScalef(1,0.5,0.2);
 	glutSolidCube(2.0);
-
 
 	glColor3f(1.0f, 0.5f , 0.5f);
 	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
@@ -74,7 +74,7 @@ void display(void) {
 	glLoadIdentity();
 	
 	gluLookAt(x, 1.0f, z, x+lx , 1.0f,  z+lz,0.0f, 1.0f,  0.0f);
-	glColor3f(0.9f, 0.0f, 0.0f);
+	glColor3f(0.1f, 0.1f, 0.1f);
 	glBegin(GL_QUADS);
 		glVertex3f(-100.0f, 0.0f, -100.0f);
 		glVertex3f(-100.0f, 0.0f,  100.0f);
