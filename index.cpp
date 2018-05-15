@@ -41,7 +41,7 @@ glClearColor(0,0,1,0);
 glColor3f(1.0f, 1.0f, 1.0f);
 
 
-	glTranslatef(0.0f, 0.0f, 0.0f);
+	glTranslatef(0.0f, 10.0f, 0.0f);
 	glutSolidCube(2.0);
 
 
@@ -81,14 +81,13 @@ void display(void) {
 		glVertex3f( 100.0f, 0.0f, -100.0f);
 	glEnd();
 	 
-	 bool flag = false;
 
-	for(int i = -10; i < 10; i++)
-		for(int j=-10; j < 10; j++){
+	for(int i = -30; i < 30; i++)
+		for(int j=-30; j < 30; j++){
 			glPushMatrix();
 			glTranslatef(i*2.5,0,j * 10.0);
 			drawRoadBlock();
-			flag=!flag;
+			drawLine();
 			glPopMatrix();
 		}
 		glutSwapBuffers();
