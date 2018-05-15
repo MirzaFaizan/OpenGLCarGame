@@ -116,7 +116,7 @@ void drawPointSphere(float z){
 	glTranslatef(0.0f, 0.0f, z);
 	glScalef(2,0.7,0.3);
 	glColor3f(1.0f, 1.0f , 0.0f);
-	glutSolidCube(2.0);
+	glutSolidSphere(0.5,20,20);
 	glPopMatrix();
 }
 
