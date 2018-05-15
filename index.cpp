@@ -5,7 +5,21 @@
 #include<curses.h>
 #include<cstdio>
 #include<iostream>
+#include<string.h>
+#include<sstream>
+
 using namespace std;
+
+
+void *font = GLUT_BITMAP_TIMES_ROMAN_24;
+void *fonts[] =
+
+{
+
+  GLUT_BITMAP_9_BY_15,
+  GLUT_BITMAP_TIMES_ROMAN_10,
+  GLUT_BITMAP_TIMES_ROMAN_24
+};
 
 float angle = 0.0f;
 float lx=0.0f,lz=-1.0f;
@@ -80,12 +94,53 @@ void reshape(int w, int h) {
 void drawRoadBlock() 
 {
 	glClearColor(0,0,1,0);
+	glPushMatrix();
 	glTranslatef(0.0f, 0.0f, 0.0f);
 	glScalef(1,0.7,0.3);
 	glColor3f(255.0f, 140.0f , 0.0f);
 	glutSolidCube(2.0);
-	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
+	glPopMatrix();
+	
 }
+
+void drawCloud(){
+	glClearColor(0,0,1,0);
+	glColor3f(1,1,0.9);
+	glPushMatrix();
+	glTranslatef(5,5,-0.3);
+	glutSolidSphere(1,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(4,4.5,0);
+	glutSolidSphere(1,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(5,5,0.2);
+	glutSolidSphere(1.2,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(5,4.3,0.5);
+	glutSolidSphere(1,20,20);
+	glPopMatrix();
+	
+}
+
+// for displaying score
+
+void output(int x, int y, char *string)
+{
+  int len, i;
+
+  glRasterPos2f(x, y);
+  len = (int) strlen(string);
+  for (i = 0; i < len; i++) {
+    glutBitmapCharacter(font, string[i]);
+  }
+}
+
 
 void drawTrees(){
 		glLoadIdentity();
@@ -109,8 +164,8 @@ void drawTrees(){
 
 void drawStrip(){
 	glClearColor(0,0,1,0);
-	glTranslatef(0.0f, 0.0f, 15.0f);
-	glScalef(1,0.1,0.2);
+	glTranslatef(0.0f, 0.0f, 5.0f);
+	glScalef(1,0.01,0.2);
 	glColor3f(1.0f, 1.0f , 1.0f);
 	glutSolidCube(2.0);
 	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
@@ -122,7 +177,27 @@ void drawCar(float x, float z){
 	glScalef(2,0.3,0.5);
 	glColor3f(255.0f, 0.0f , 0.0f);
 	glutSolidCube(3.0);
+	glPushMatrix();
+	glTranslatef(0.0f, 0.2f, -2.0f);
+	glScalef(1,0.3,0.3);
+	glColor3f(0.5f, 0.5f , 0.5f);
+	glutSolidCube(3.0);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(0.0f, 0.2f, 2.0f);
+	glScalef(1,0.3,0.3);
+	glColor3f(0.5f, 0.5f , 0.5f);
+	glutSolidCube(3.0);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(0.0f, 2.0f, 0.0f);
+	glScalef(1,0.3,0.3);
+	glColor3f(0.5f, 0.5f , 0.5f);
+	glutSolidCube(3.0);
+	glPopMatrix();
+	glColor3f(1,1,1);
 	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
+
 }
 
 void computePos(float deltaMove) 
@@ -147,17 +222,6 @@ void computeDir(float deltaAngle)
 	lz = -cos(angle);
 }
 
-// game over function 
-void displayGameOver(){
-
-	glClearColor(0,0,1,0);
-	glTranslatef(0.0f, 0.0f, 1.0f);
-	glScalef(2,0.3,0.5);
-	glColor3f(255.0f, 0.0f , 0.0f);
-	glutSolidCube(3.0);
-	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
-
-}
 
 void display(void) {
 
@@ -176,23 +240,29 @@ void display(void) {
 		glVertex3f( 400.0f, 0.0f, -400.0f);
 	glEnd();
 
-	 int a , b;
-
+	bool check = true;
 	for(int i = 0; i < 100; i++){
 		for(int j=0; j < 2; j++){
 			glPushMatrix();
 			glTranslatef(i*2.5,0,j * 10.0);
 			drawRoadBlock();
+			if(check && i%4==0){
+				drawCloud();
+			}
 			drawStrip();
 			glPopMatrix();
 			
 		}
 	}
-
-		if(z>9){
-			displayGameOver();
-		}
 		drawCar(x,z);
+// TO print OUTPUT
+		stringstream stream;
+		stream << (x);
+		string s = stream.str();
+		int size = s.length();
+		char aa[size+1];
+		strcpy(aa,s.c_str());
+		output(0,3,aa);
 		glutSwapBuffers();
 }
 
@@ -227,7 +297,7 @@ int main(int argc, char **argv) {
 	glutSpecialFunc(pressKey);
 	glutSpecialUpFunc(releaseKey);
 	glEnable(GL_DEPTH_TEST);
-	glutDisplayFunc(displayGameOver);
+	
 	glutDisplayFunc(display);
 
 	glutMainLoop();
