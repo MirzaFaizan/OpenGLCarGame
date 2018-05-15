@@ -13,6 +13,59 @@ float x=0.0f, z=5.0f;
 float deltaAngle = 0.0f;
 float deltaMove = 0;
 
+#define PI 3.1415927
+
+/************************** draw_cylinder() **************************
+* This function will draw the cylinder
+*
+*   @parameter1: radius = The radius of cylinder
+*   @parameter2: height = Height of the cylinder
+*   @parameter3: R = Red value of the cylinder's color
+*   @parameter4: G = Green value of the cylinder's color
+*   @parameter5: B = Blue value of the cylinder's color
+*
+*   @return: Nothing
+*/
+void draw_cylinder(GLfloat radius,
+	GLfloat height,
+	GLubyte R,
+	GLubyte G,
+	GLubyte B)
+{
+	GLfloat x = 0.0;
+	GLfloat y = 0.0;
+	GLfloat angle = 0.0;
+	GLfloat angle_stepsize = 0.1;
+
+	/** Draw the tube */
+	glColor3ub(R - 40, G - 40, B - 40);
+	glBegin(GL_QUAD_STRIP);
+	angle = 0.0;
+	while (angle < 2 * PI) {
+		x = radius * cos(angle);
+		y = radius * sin(angle);
+		glVertex3f(x, y, height);
+		glVertex3f(x, y, 0.0);
+		angle = angle + angle_stepsize;
+	}
+	glVertex3f(radius, 0.0, height);
+	glVertex3f(radius, 0.0, 0.0);
+	glEnd();
+
+	/** Draw the circle on top of cylinder */
+	glColor3ub(R, G, B);
+	glBegin(GL_POLYGON);
+	angle = 0.0;
+	while (angle < 2 * PI) {
+		x = radius * cos(angle);
+		y = radius * sin(angle);
+		glVertex3f(x, y, height);
+		angle = angle + angle_stepsize;
+	}
+	glVertex3f(radius, 0.0, height);
+	glEnd();
+}
+
 void reshape(int w, int h) {
 	if (h == 0)
 		h = 1;
@@ -27,37 +80,51 @@ void reshape(int w, int h) {
 void drawRoadBlock() 
 {
 	glClearColor(0,0,1,0);
-
 	glTranslatef(0.0f, 0.0f, 0.0f);
 	glScalef(1,0.7,0.3);
-	glutSolidCube(2.0);
 	glColor3f(255.0f, 140.0f , 0.0f);
+	glutSolidCube(2.0);
 	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
 }
 
+void drawTrees(){
+		glLoadIdentity();
+	glTranslatef(0.0, -1, -4.0);
+	glRotatef(-60, 1.0, 0.0, 0.0);
+	glColor3f(0, 1, 1);
+	draw_cylinder(0.3, 1.0, 255, 160, 100);
+	
+	glColor3f(0, 1, 0);
+	//glRotatef(20, 1.0, 0.0, 0.0);
+	glTranslatef(0,2.0,0);
+	glutSolidCone( 1.5,  1.0, 100, 100);
+
+	glTranslatef(0, 3.0, 0);
+	glutSolidCone(1.5, 1.0, 100, 100);
+
+	glTranslatef(0, 4.0, 0);
+	glutSolidCone(1.5, 1.0, 100, 100);
+
+}
+
+void drawStrip(){
+	glClearColor(0,0,1,0);
+	glTranslatef(0.0f, 0.0f, 15.0f);
+	glScalef(1,0.1,0.2);
+	glColor3f(1.0f, 1.0f , 1.0f);
+	glutSolidCube(2.0);
+	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
+}
 
 void drawCar(float x, float z){
 	glClearColor(0,0,1,0);
-	glTranslatef(x+5, 0.0f, z);
-	glScalef(1,0.7,0.3);
-	glutSolidCube(4.0);
-	glColor3f(255.0f, 1.0f , 0.0f);
+	glTranslatef(x+6, 0.0f, z);
+	glScalef(2,0.3,0.5);
+	glColor3f(255.0f, 0.0f , 0.0f);
+	glutSolidCube(3.0);
 	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
 }
 
-void drawLine() 
-{
-glClearColor(0,0,1,0);
-glColor3f(1.0f, 1.0f, 1.0f);
-
-
-	glTranslatef(0.0f, 10.0f, 0.0f);
-	glutSolidCube(2.0);
-
-
-	glColor3f(1.0f, 0.5f , 0.5f);
-	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
-}
 void computePos(float deltaMove) 
 {
 
@@ -92,19 +159,23 @@ void display(void) {
 
 	 int a , b;
 
-	for(int i = -30; i < 30; i++){
-		for(int j=-30; j < 30; j++){
+	for(int i = -20; i < 20; i++){
+		for(int j=-20; j < 20; j++){
 			glPushMatrix();
 			glTranslatef(i*2.5,0,j * 10.0);
 			drawRoadBlock();
-			drawLine();
+			drawStrip();
+			glPopMatrix();
+			glPushMatrix();
+			glTranslatef(i*2.5,0,j * 10.0);
+			
 			glPopMatrix();
 			
 		}
 	}
 
-		drawCar(x,z);
 
+		drawCar(x,z);
 		glutSwapBuffers();
 }
 
