@@ -90,7 +90,9 @@ void display(void) {
 			drawLine();
 			glPopMatrix();
 		}
+		drawRoadBlock();
 	}
+
 
 		glutSwapBuffers();
 }
