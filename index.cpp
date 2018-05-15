@@ -48,7 +48,7 @@ void reshape(int w, int h) {
 }
 void drawRoadBlock() 
 {
-	glClearColor(0,0,1,0);
+	glClearColor(0,1,1,0);
 	glPushMatrix();
 	glTranslatef(0.0f, 0.0f, 0.0f);
 	glScalef(1,0.7,0.3);
@@ -59,7 +59,7 @@ void drawRoadBlock()
 }
 
 void drawPointSphere(float z){
-	glClearColor(0,0,1,0);
+	glClearColor(0,1,1,0);
 	glPushMatrix();
 	glTranslatef(0.0f, 0.5f, z);
 	glColor3f(1.0f, 1.0f , 0.0f);
@@ -68,7 +68,7 @@ void drawPointSphere(float z){
 }
 
 void drawCloud(){
-	glClearColor(0,0,1,0);
+	glClearColor(0,1,1,0);
 	glColor3f(1,1,0.9);
 	glPushMatrix();
 	glTranslatef(5,5,-0.3);
@@ -107,7 +107,7 @@ void output(int x, int y, char *string)
 
 
 void drawStrip(){
-	glClearColor(0,0,1,0);
+	glClearColor(0,1,1,0);
 	glTranslatef(0.0f, 0.0f, 5.0f);
 	glScalef(1,0.01,0.2);
 	glColor3f(1.0f, 1.0f , 1.0f);
@@ -116,7 +116,7 @@ void drawStrip(){
 }
 
 void drawCar(float x, float z){
-	glClearColor(0,0,1,0);
+	glClearColor(0,1,1,0);
 	glTranslatef(x+6, 0.0f, z);
 	glScalef(2,0.3,0.5);
 	glColor3f(255.0f, 0.0f , 0.0f);
