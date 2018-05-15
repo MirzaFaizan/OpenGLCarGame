@@ -170,10 +170,10 @@ void display(void) {
 	gluLookAt(x, 1.0f, z, x+lx , 1.0f,  z+lz,0.0f, 1.0f,  0.0f);
 	glColor3f(0.1f, 0.1f, 0.1f);
 	glBegin(GL_QUADS);
-		glVertex3f(-200.0f, 0.0f, -200.0f);
-		glVertex3f(-200.0f, 0.0f,  200.0f);
-		glVertex3f( 200.0f, 0.0f,  200.0f);
-		glVertex3f( 200.0f, 0.0f, -200.0f);
+		glVertex3f(-100.0f, 0.0f, -100.0f);
+		glVertex3f(-100.0f, 0.0f,  100.0f);
+		glVertex3f( 400.0f, 0.0f,  400.0f);
+		glVertex3f( 400.0f, 0.0f, -400.0f);
 	glEnd();
 
 	 int a , b;
