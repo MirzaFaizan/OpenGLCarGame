@@ -83,16 +83,14 @@ void display(void) {
 	glEnd();
 
 	for(int i = -5; i < 5; i++)
-		for(int j=-5; j < 5; j++) 
-                                   {
+		for(int j=-5; j < 5; j++){
 			glPushMatrix();
-			glTranslatef(i*3.0,0,j * 10.0);
+			glTranslatef(i*2.5,0,j * 10.0);
 			drawSnowMan();
 			glPopMatrix();
-			}
-
-	glutSwapBuffers();
-          }
+		}
+		glutSwapBuffers();
+}
 
 void pressKey(int key, int xx, int yy) {
 
