@@ -21,12 +21,19 @@ void *fonts[] =
   GLUT_BITMAP_TIMES_ROMAN_24
 };
 
+// structure of block
+
+struct block {
+	int x;
+	int y;
+};
+
 float angle = 0.0f;
 float lx=0.0f,lz=-1.0f;
 float x=0.0f, z=5.0f;
 float deltaAngle = 0.0f;
 float deltaMove = 0;
-
+block blocks[10];
 #define PI 3.1415927
 
 /************************** draw_cylinder() **************************
@@ -97,10 +104,20 @@ void drawRoadBlock()
 	glPushMatrix();
 	glTranslatef(0.0f, 0.0f, 0.0f);
 	glScalef(1,0.7,0.3);
-	glColor3f(255.0f, 140.0f , 0.0f);
+	glColor3f(0.0f, 1.0f , 0.0f);
 	glutSolidCube(2.0);
 	glPopMatrix();
 	
+}
+
+void drawPointSphere(float z){
+	glClearColor(0,0,1,0);
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, z);
+	glScalef(2,0.7,0.3);
+	glColor3f(1.0f, 1.0f , 0.0f);
+	glutSolidCube(2.0);
+	glPopMatrix();
 }
 
 void drawCloud(){
@@ -141,26 +158,6 @@ void output(int x, int y, char *string)
   }
 }
 
-
-void drawTrees(){
-		glLoadIdentity();
-	glTranslatef(0.0, -1, -4.0);
-	glRotatef(-60, 1.0, 0.0, 0.0);
-	glColor3f(0, 1, 1);
-	draw_cylinder(0.3, 1.0, 255, 160, 100);
-	
-	glColor3f(0, 1, 0);
-	//glRotatef(20, 1.0, 0.0, 0.0);
-	glTranslatef(0,2.0,0);
-	glutSolidCone( 1.5,  1.0, 100, 100);
-
-	glTranslatef(0, 3.0, 0);
-	glutSolidCone(1.5, 1.0, 100, 100);
-
-	glTranslatef(0, 4.0, 0);
-	glutSolidCone(1.5, 1.0, 100, 100);
-
-}
 
 void drawStrip(){
 	glClearColor(0,0,1,0);
@@ -246,6 +243,9 @@ void display(void) {
 			glPushMatrix();
 			glTranslatef(i*2.5,0,j * 10.0);
 			drawRoadBlock();
+			if(check && i%8==0){
+				drawPointSphere(4);
+			}
 			if(check && i%4==0){
 				drawCloud();
 			}
