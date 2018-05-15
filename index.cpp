@@ -206,7 +206,7 @@ void display(void) {
 		drawCar(x,z);
 		// TO print OUTPUT
 		stringstream stream;
-		stream << (x);
+		stream << x;
 		string s = stream.str();
 		int size = s.length();
 		char aa[size+1];
