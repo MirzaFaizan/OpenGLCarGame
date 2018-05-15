@@ -83,8 +83,8 @@ void display(void) {
 	 
 	 bool flag = false;
 
-	for(int i = -5; i < 5; i++)
-		for(int j=-5; j < 5; j++){
+	for(int i = -10; i < 10; i++)
+		for(int j=-10; j < 10; j++){
 			glPushMatrix();
 			glTranslatef(i*2.5,0,j * 10.0);
 			drawRoadBlock();
