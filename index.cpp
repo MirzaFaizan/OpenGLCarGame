@@ -113,8 +113,7 @@ void drawRoadBlock()
 void drawPointSphere(float z){
 	glClearColor(0,0,1,0);
 	glPushMatrix();
-	glTranslatef(0.0f, 0.0f, z);
-	glScalef(2,0.7,0.3);
+	glTranslatef(0.0f, 0.5f, z);
 	glColor3f(1.0f, 1.0f , 0.0f);
 	glutSolidSphere(0.5,20,20);
 	glPopMatrix();
