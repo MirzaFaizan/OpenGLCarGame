@@ -82,7 +82,7 @@ void display(void) {
 	glEnd();
 	 
 
-	for(int i = -30; i < 30; i++)
+	for(int i = -30; i < 30; i++){
 		for(int j=-30; j < 30; j++){
 			glPushMatrix();
 			glTranslatef(i*2.5,0,j * 10.0);
@@ -90,6 +90,7 @@ void display(void) {
 			drawLine();
 			glPopMatrix();
 		}
+	}
 
 		glutSwapBuffers();
 }
