@@ -35,6 +35,16 @@ void drawRoadBlock()
 	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
 }
 
+
+void drawCar(float x, float z){
+	glClearColor(0,0,1,0);
+	glTranslatef(x+5, 0.0f, z);
+	glScalef(1,0.7,0.3);
+	glutSolidCube(4.0);
+	glColor3f(255.0f, 1.0f , 0.0f);
+	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
+}
+
 void drawLine() 
 {
 glClearColor(0,0,1,0);
@@ -80,7 +90,7 @@ void display(void) {
 		glVertex3f( 200.0f, 0.0f, -200.0f);
 	glEnd();
 
-	 
+	 int a , b;
 
 	for(int i = -30; i < 30; i++){
 		for(int j=-30; j < 30; j++){
@@ -89,9 +99,11 @@ void display(void) {
 			drawRoadBlock();
 			drawLine();
 			glPopMatrix();
+			
 		}
 	}
 
+		drawCar(x,z);
 
 		glutSwapBuffers();
 }
