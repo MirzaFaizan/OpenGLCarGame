@@ -127,9 +127,13 @@ void drawCar(float x, float z){
 
 void computePos(float deltaMove) 
 {
-
+	if(!(z>9)){
 	x += deltaMove * lx * 0.5f;
 	z += deltaMove * lz * 0.5f;
+	}
+	else{
+		z=z-1;
+	}
 }
 
 void computeDir(float deltaAngle)
