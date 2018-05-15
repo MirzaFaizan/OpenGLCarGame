@@ -1,9 +1,11 @@
 #include "GL/glut.h"
-
 #include<stdlib.h>
 #include<math.h>
-
-
+#include<unistd.h>
+#include<curses.h>
+#include<cstdio>
+#include<iostream>
+using namespace std;
 
 float angle = 0.0f;
 float lx=0.0f,lz=-1.0f;
@@ -22,17 +24,14 @@ void reshape(int w, int h) {
 	gluPerspective(45.0f, ratio, 0.1f, 100.0f);
 	glMatrixMode(GL_MODELVIEW);
 }
-void drawSnowMan() 
+void drawRoadBlock() 
 {
-glClearColor(0,0,1,0);
-glColor3f(1.0f, 1.0f, 1.0f);
-
+	glClearColor(0,0,1,0);
 
 	glTranslatef(0.0f, 0.0f, 0.0f);
-	glScalef(1,0.5,0.2);
+	glScalef(1,0.7,0.3);
 	glutSolidCube(2.0);
-
-	glColor3f(1.0f, 0.5f , 0.5f);
+	glColor3f(255.0f, 140.0f , 0.0f);
 	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
 }
 
@@ -81,12 +80,15 @@ void display(void) {
 		glVertex3f( 100.0f, 0.0f,  100.0f);
 		glVertex3f( 100.0f, 0.0f, -100.0f);
 	glEnd();
+	 
+	 bool flag = false;
 
 	for(int i = -5; i < 5; i++)
 		for(int j=-5; j < 5; j++){
 			glPushMatrix();
 			glTranslatef(i*2.5,0,j * 10.0);
-			drawSnowMan();
+			drawRoadBlock();
+			flag=!flag;
 			glPopMatrix();
 		}
 		glutSwapBuffers();
