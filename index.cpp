@@ -43,7 +43,7 @@ void reshape(int w, int h) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glViewport(2, 2, w, h);
-	gluPerspective(45.0f, ratio, 0.1f, 100.0f);
+	gluPerspective(60.0f, ratio, 0.1f, 100.0f);
 	glMatrixMode(GL_MODELVIEW);
 }
 void drawRoadBlock() 
@@ -153,9 +153,12 @@ void computePos(float deltaMove)
 		z=z+1;
 	}
 	else{
+		if(!(x>245)){
 	x += deltaMove * lx * 0.5f;
 	z += deltaMove * lz * 0.5f;
+		}
 	}
+
 }
 
 void computeDir(float deltaAngle)
@@ -211,7 +214,11 @@ void display(void) {
 		int size = s.length();
 		char aa[size+1];
 		strcpy(aa,s.c_str());
-		output(0,3,aa);
+		if(!(x>244)){
+			output(0,3,aa);
+		}else{
+			output(0,4,"GAME OVER");
+		}
 		glutSwapBuffers();
 }
 
