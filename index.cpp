@@ -247,11 +247,13 @@ int main(int argc, char **argv) {
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100,100);
 	glutInitWindowSize(320,320);
+
 	glutCreateWindow("Racing Game");
 	glutReshapeFunc(reshape);
 	glutIdleFunc(display);
 	glutSpecialFunc(pressKey);
 	glutSpecialUpFunc(releaseKey);
+
 	glEnable(GL_DEPTH_TEST);
 	
 	glutDisplayFunc(display);
