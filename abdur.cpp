@@ -10,14 +10,12 @@
 
 void drawvehicle(){
     glClear(GL_COLOR_BUFFER_BIT);
-	
+
 	glLoadIdentity();
 	glColor3f(0, 1, 0);
 	glTranslatef(0.97, 0.19, 0);  //right path of road
 	glScalef(0.56, 1.925, 0);
 	glutSolidCube(2);
-
-
 
 	glLoadIdentity();
 	glColor3f(0, 1, 0);
@@ -31,9 +29,7 @@ void drawvehicle(){
 	glScalef(0.37, 1.925, 0);
 	glutSolidCube(2);
 
-
 	///white loans accoors rooad
-
 
 	glLoadIdentity();
 	glColor3f(1, 1, 1);
@@ -113,6 +109,7 @@ void display()
     drawvehicle();
     glFlush();
 }
+
 int main(int argc, char **argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);

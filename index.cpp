@@ -13,27 +13,18 @@ using namespace std;
 
 void *font = GLUT_BITMAP_TIMES_ROMAN_24;
 void *fonts[] =
-
 {
-
   GLUT_BITMAP_9_BY_15,
   GLUT_BITMAP_TIMES_ROMAN_10,
   GLUT_BITMAP_TIMES_ROMAN_24
 };
 
-// structure of block
-
-struct block {
-	int x;
-	int y;
-};
-
+int score=0;
 float angle = 0.0f;
 float lx=0.0f,lz=-1.0f;
 float x=0.0f, z=5.0f;
 float deltaAngle = 0.0f;
 float deltaMove = 0;
-block blocks[10];
 
 void reshape(int w, int h) {
 	if (h == 0)
@@ -97,6 +88,16 @@ void drawCloud(){
 void output(int x, int y, char *string)
 {
   int len, i;
+  glRasterPos2f(x, y);
+  len = (int) strlen(string);
+  for (i = 0; i < len; i++) {
+    glutBitmapCharacter(font, string[i]);
+  }
+}
+
+void output1(int x, int y, char *string)
+{
+  int len, i;
 
   glRasterPos2f(x, y);
   len = (int) strlen(string);
@@ -104,6 +105,7 @@ void output(int x, int y, char *string)
     glutBitmapCharacter(font, string[i]);
   }
 }
+
 
 
 void drawStrip(){
@@ -153,7 +155,7 @@ void computePos(float deltaMove)
 		z=z+1;
 	}
 	else{
-		if(!(x>245)){
+		if(!(x>400)){
 	x += deltaMove * lx * 0.5f;
 	z += deltaMove * lz * 0.5f;
 		}
@@ -170,6 +172,7 @@ void computeDir(float deltaAngle)
 }
 
 
+
 void display(void) {
 
 	if (deltaMove)
@@ -183,22 +186,21 @@ void display(void) {
 	glBegin(GL_QUADS);
 		glVertex3f(-100.0f, 0.0f, -100.0f);
 		glVertex3f(-100.0f, 0.0f,  100.0f);
-		glVertex3f( 400.0f, 0.0f,  400.0f);
-		glVertex3f( 400.0f, 0.0f, -400.0f);
+		glVertex3f( 600.0f, 0.0f,  600.0f);
+		glVertex3f( 600.0f, 0.0f, -600.0f);
 	glEnd();
 
-	bool check = true;
-	for(int i = 0; i < 100; i++){
+	for(int i = 0; i < 200; i++){
 		for(int j=0; j < 2; j++){
 			glPushMatrix();
 			glTranslatef(i*2.5,0,j * 10.0);
 			drawRoadBlock();
-			if(check && i%8==0){
+			if(i%8==0){
 				//random number
 				//int v2 = rand() % 9 + 1;     
 				drawPointSphere(5);
 			}
-			if(check && i%4==0){
+			if( i%4==0){
 				drawCloud();
 			}
 			drawStrip();
@@ -207,6 +209,7 @@ void display(void) {
 		}
 	}
 		drawCar(x,z);
+glColor3f(0,0,0);
 		// TO print OUTPUT
 		stringstream stream;
 		stream << x;
@@ -214,13 +217,39 @@ void display(void) {
 		int size = s.length();
 		char aa[size+1];
 		strcpy(aa,s.c_str());
-		if(!(x>244)){
+		if(!(x>400)){
 			output(0,3,aa);
 		}else{
+
 			output(0,4,"GAME OVER");
 		}
+
+		// TO print second OUTPUT
+		stringstream stream1;
+		stream1 << score;
+		string s1 = stream1.str();
+		int size1 = s1.length();
+		char aa1[size1+1];
+		strcpy(aa1,s1.c_str());
+		if(!(x>400)){
+			output1(0,5,aa1);
+		}
+
+
+		if(z<4.9&&z>4.6){
+			if(
+				(x>13&&x<16) || (x>33&&x<36) || (x>53&&x<56) || (x>73&&x<76) || (x>93&&x<96) || (x>113&&x<116) || (x>133&&x<136) ||
+				(x>153&&x<156) || (x>173&&x<176) || (x>193&&x<196) || (x>213&&x<216) || (x>233&&x<236) || (x>253&&x<256)
+			)
+			{
+				score++;
+				cout<<score;
+			}
+		}
+
 		glutSwapBuffers();
 }
+
 
 void pressKey(int key, int xx, int yy) {
 
