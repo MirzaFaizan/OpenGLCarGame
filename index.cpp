@@ -64,6 +64,7 @@ void drawCloud(){
 	glPushMatrix();
 	glTranslatef(5,5,-0.3);
 	glutSolidSphere(1,20,20);
+	
 	glPopMatrix();
 
 	glPushMatrix();
